@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -120,6 +121,7 @@ class AuthController extends Controller
     {
         $products = Product::all();
         return view ('view', compact('products'));
+
     }
 
      public function products()
@@ -144,18 +146,36 @@ class AuthController extends Controller
     public function instock()
     {
         $products = Product::all();
-        return view ('instock', compact('products'));
+        $category = \DB::table('categories')
+            ->get();
+        return view ('instock', compact('products', 'category'));
     }
 
     public function notifications()
     {
-        return view('notifications'); 
+        $logs = DB::table('products')->where('quantity', '<=', 3)->get();
+        return view('notifications', compact('logs')); 
     }
 
     public function reports()
     {
         $products = Product::all();
         return view ('reports', compact('products'));
+    }
+
+    public function sold(Request $request, $id)
+    {
+        
+         DB::table('products')->where('id', $id)->decrement('quantity');
+         return redirect('instock');
+        
+    }
+
+    public function addstock(Request $request, $id)
+    {
+        DB::table('products')->where('id', $id)->increment('quantity');
+         return redirect('instock');
+        
     }
 
 
@@ -189,6 +209,17 @@ class AuthController extends Controller
 
     }
 
+    public function deletefunction($id)
+    {
+        DB::delete('delete from categories where id = ?', [$id]);
+        return redirect('showcategory');
+    }
+
+    public function deleteproduct($id)
+    {
+        DB::delete('delete from products where id = ?', [$id]);
+        return redirect('view');
+    }
 
 
   

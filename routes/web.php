@@ -39,5 +39,14 @@ Route::get('reports', [AuthController::class, 'reports'])->name('reports');
 Route::post('addcategory', [AuthController::class, 'addcategory'])->name('addcategory');
 Route::post('addproduct', [AuthController::class, 'addproduct'])->name('addproduct');
 
+Route::get('sold', [AuthController::class, 'sold'])->name('sold');
+
 
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/delete/{id}', [AuthController::class, 'deletefunction'])->name('delete');
+Route::get('/deleteid/{id}', [AuthController::class, 'deleteproduct'])->name('delete');
+
+Route::get('/addstock/{id}', [AuthController::class, 'addstock'])->name('addstock');
+Route::get('/sold/{id}', [AuthController::class, 'sold'])->name('sold');
+
+

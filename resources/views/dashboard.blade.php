@@ -311,7 +311,7 @@
 
      <li>
        <a href="{{ route('products') }}">
-         <i class='bx bx-pie-chart-alt-2' ></i>
+         <i class='bx bx-add-to-queue' ></i>
          <span class="links_name">Add Products</span>
        </a>
        <span class="tooltip">Add Products</span>
@@ -327,7 +327,7 @@
 
      <li>
        <a href="{{ route('category') }}">
-         <i class='bx bx-folder' ></i>
+         <i class='bx bx-add-to-queue' ></i>
          <span class="links_name">Add Categories</span>
        </a>
        <span class="tooltip">Add Categories</span>
@@ -339,14 +339,6 @@
          <span class="links_name">In Stock</span>
        </a>
        <span class="tooltip">In Stock</span>
-     </li>
-
-     <li>
-       <a href="#">
-         <i class='bx bx-cart-alt' ></i>
-         <span class="links_name">Out of Stock</span>
-       </a>
-       <span class="tooltip">Out of Stock</span>
      </li>
 
         <li>
@@ -366,7 +358,7 @@
      </li>
      <li>
        <a href="{{ route('logout') }}">
-         <i class='bx bx-cog' ></i>
+         <i class='bx bx-log-out' ></i>
          <span class="links_name">Logout</span>
        </a>
        <span class="tooltip">Logout</span>
@@ -379,7 +371,6 @@
              <div class="job">{{Auth::user()->phone}}</div>
            </div>
          </div>
-         <i class='bx bx-log-out' id="log_out" ></i>
      </li>
     </ul>
   </div>
