@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Log;
+use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -119,9 +120,22 @@ class AuthController extends Controller
 
     public function view()
     {
-        $products = Product::all();
+        $products = Log::all();
         return view ('view', compact('products'));
 
+    }
+
+     public function home()
+    {
+        $products = Product::count();
+        $category = Category::count();
+        $totalByProduct = DB::table('reports')
+            ->join('products', 'products.id', '=', 'reports.product_id')
+            ->select('product_id', 'products.name', DB::raw('SUM(quantity_add) as total'))
+            ->groupBy('product_id','products.name')
+            ->get();
+
+        return view('home', compact('category', 'products', 'totalByProduct')); 
     }
 
      public function products()
@@ -148,35 +162,62 @@ class AuthController extends Controller
         $products = Product::all();
         $category = \DB::table('categories')
             ->get();
+        
+        
+
         return view ('instock', compact('products', 'category'));
     }
 
     public function notifications()
     {
-        $logs = DB::table('products')->where('quantity', '<=', 3)->get();
+        $logs = DB::table('logs')->where('quantity', '<=', 5)->get();
         return view('notifications', compact('logs')); 
     }
 
     public function reports()
     {
-        $products = Product::all();
-        return view ('reports', compact('products'));
+        $report = DB::table('reports')
+            ->join('products', 'reports.product_id', '=', 'products.id')
+            ->select('products.*', 'reports.*')
+            ->get();
+        return view ('reports', compact('report'));
     }
 
     public function sold(Request $request, $id)
     {
         
-         DB::table('products')->where('id', $id)->decrement('quantity');
-         return redirect('instock');
+        $productid = DB::table('products')->where('id', $id)->value('id');
+        $report = new Report([
+        'product_id' => $productid,
+        'quantity_add' => $request->input('quantity_add'),
+        'stockleft' => $request->input('stockleft'),
+        ]);
+        $report->save();
+
+        $left = $request->input('stockleft');
+
+        DB::table('logs')->where('id', $id)->update(['quantity' => $left]);
+         return redirect('instock')->with('product', $id);
         
     }
 
     public function addstock(Request $request, $id)
     {
-        DB::table('products')->where('id', $id)->increment('quantity');
-         return redirect('instock');
+        $productid = DB::table('products')->where('id', $id)->value('id');
+        $report = new Report([
+        'product_id' => $productid,
+        'quantity_add' => $request->input('quantity_add'),
+        'stockleft' => $request->input('stockleft'),
+        ]);
+        $report->save();
+
+        $add = $request->input('quantity_add');
+        DB::table('logs')->where('id', $id)->increment('quantity', $add);
+
+         return redirect('instock')->with('product', $id);
         
     }
+
 
 
 
@@ -201,9 +242,24 @@ class AuthController extends Controller
 
     public function addproduct(Request $request)
     {
+        $product = new Product([
+        'code' => $request->input('code'),
+        'name' => $request->input('name'),
+        'quantity' => 0,
+        'price' => $request->input('price'),
+        'category' => $request->input('category'),
+        ]);
+        $product->save();
 
-        $requestData = $request->all();
-        Product::create($requestData);
+        $log = new Log([
+        'code' => $request->input('code'),
+        'name' => $request->input('name'),
+        'quantity' => 0,
+        'price' => $request->input('price'),
+        'category' => $request->input('category'),
+        ]);
+        $log->save();
+
         return redirect()->back()->with('message',
         'New Product Added Successfully');
 

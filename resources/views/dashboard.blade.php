@@ -260,37 +260,6 @@
         }
         }
 
-        input[type=text], select {
-        width: 25%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: block;
-        border: 1px solid #fff;
-        border-radius: 4px;
-        box-sizing: border-box;
-        }
-
-        input[type=number], select {
-        width: 25%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: block;
-        border: 1px solid #fff;
-        border-radius: 4px;
-        box-sizing: border-box;
-        }
-
-        button[type=submit] {
-        width: 25%;
-        background-color: #EDDBC7;
-        color: black;
-        padding: 14px 20px;
-        margin: 8px 0;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        }
-
         </style>
    </head>
 <body>
@@ -301,6 +270,14 @@
         <i class='bx bx-menu' id="btn" ></i>
     </div>
     <ul class="nav-list">
+      <li>
+        <a href="{{ route('home') }}">
+          <i class='bx bx-home-alt'></i>
+          <span class="links_name">Home</span>
+        </a>
+         <span class="tooltip">Home</span>
+      </li>
+
       <li>
         <a href="{{ route('view') }}">
           <i class='bx bx-grid-alt'></i>

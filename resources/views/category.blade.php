@@ -2,6 +2,40 @@
   
 @section('content')
 
+<style>
+    input[type=text], select {
+        width: 25%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: block;
+        border: 1px solid #fff;
+        border-radius: 4px;
+        box-sizing: border-box;
+        }
+
+        input[type=number], select {
+        width: 25%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: block;
+        border: 1px solid #fff;
+        border-radius: 4px;
+        box-sizing: border-box;
+        }
+
+        button[type=submit] {
+        width: 25%;
+        background-color: #EDDBC7;
+        color: black;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        }
+
+</style>
+
  <section class="home-section">
       <div class="text">Lim's Sari-Sari Store Monitoring System</div>
 

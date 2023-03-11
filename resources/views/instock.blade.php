@@ -19,7 +19,7 @@
     }
 
     .table-responsive{
-        height: 400px;
+        height: 300px;
         overflow-y: scroll;
     }
 
@@ -82,10 +82,10 @@
         opacity: 75%;
         position: absolute;
         margin: auto;
-        width: 85%;
+        width: 95%;
         padding: 30px;
         top: 20%;
-        left: 8%;
+        left: 3%;
         border-radius: 15px;
         border: 1px solid black;
     }
@@ -112,6 +112,30 @@
         border: 1px solid white;
         margin-top: 2px;
     }
+
+
+.input {
+	padding: 12px 20px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    box-sizing: border-box;
+	float: left;
+    width: 40%;
+}
+
+.button {
+    box-sizing: border-box;
+    display: inline-block;
+	width: auto;
+	float: left;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 0;
+}
+
+
 
     
 </style>
@@ -161,10 +185,9 @@
                                         <th>Name</th>
                                         <th>Price</th>
                                         <th>Category</th>
-                                        <th>In Stock</th>
+                                        
                                         <th>Add Stock</th>
-                                        <th>Sell</th>
-                                        <th>Out of Stock?</th>
+                                        <th>Stock Left</th>
                                 </thead>
                                 </thead>
                                 <tbody classname="table-body">
@@ -176,21 +199,39 @@
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->price }}</td>
                                         <td>{{ $item->category }}</td>
-                                        <td>{{ $item->quantity }}</td>
-                                        <td> 
-                                            <a href = "addstock/{{$item->id}}" class="button">+</a> 
-                                            
-                                        </td>
-                                        <td> <a href = "sold/{{$item->id}}" class="button">-</a> </td>
-                                        <td> <a href = "#" class="button">Delete</a> </td>
 
-                                    </tr>
+                                        <td> 
+                                        <form action="addstock/{{$item->id}}" class="flexbox" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <input class="input flex" type="number" id="quantity_add" name="quantity_add" required autofocus> </input>
+                                            <button class="button" type="submit" name = "submit">
+                                            GO
+                                        </button>
+                                        </form> 
+                                        </td>
+                                        <td> 
+                                        <form action="sold/{{$item->id}}" class="flexbox" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <input class="input flex" type="number" id="stockleft" name="stockleft" required autofocus> </input>
+                                            <button class="button" type="submit" name = "submit">
+                                            GO
+                                        </button>
+                                        </form> 
+                                        </td>
+                                </tr>
+
                                 @endforeach
+                            
 
                                 
                                 </tbody>
                             </table>
                         </div>
+
+<br>
+    <br>        
+<br>
+      
 </section>
 
 @endsection

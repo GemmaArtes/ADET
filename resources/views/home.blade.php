@@ -3,7 +3,6 @@
 @section('content')
 
 <style>
-
     /* Table Style */
 
     .table {
@@ -19,7 +18,7 @@
     }
 
     .table-responsive{
-        height: 400px;
+        height: 200px;
         overflow-y: scroll;
     }
 
@@ -39,6 +38,26 @@
         border-color: black;
         height: 40px;
     }
+
+    .button{
+        display: inline-block;
+        outline: 0;
+        border: 0;
+        cursor: pointer;
+        font-weight: 600;
+        color: rgb(72, 76, 122);
+        font-size: 14px;
+        height: 38px;
+        padding: 8px 24px;
+        border-radius: 50px;
+        transition: all .2s ease-out;
+            
+    }
+
+    .button:hover{
+        box-shadow: 0 8px 22px 0 rgb(37 44 97 / 15%), 0 4px 6px 0 rgb(93 100 148 / 20%);
+    }
+
 
 
     /* Page Header */
@@ -62,10 +81,10 @@
         opacity: 75%;
         position: absolute;
         margin: auto;
-        width: 85%;
+        width: 95%;
         padding: 30px;
         top: 20%;
-        left: 8%;
+        left: 3%;
         border-radius: 15px;
         border: 1px solid black;
     }
@@ -93,29 +112,12 @@
         margin-top: 2px;
     }
 
+
     
 </style>
 
-<script>
-
-    $ = function(id) {
-            return document.getElementById(id);
-        }
-
-        var show = function(id, event) {
-            $(id).style.display ='block';
-            event.preventDefault();
-        }
-        var hide = function(id) {
-            $(id).style.display ='none';
-        }
-
-</script>
-
 <section class="home-section">
-      <div class="text">
-        <h4>Lim's Sari-Sari Store Monitoring System</h4>
-    </div>
+      <div class="text">Lim's Sari-Sari Store Monitoring System</div>
 
       <br>
       <br>
@@ -125,42 +127,52 @@
             <div class="container t-box" align = "left">
             <div class=t-header>
                 <h1 class="title">
-                    PRODUCTS
+                    HOME
                 </h1>
             </div>
 
-<br>
+            <br>
 
-      <div class="table-responsive" align = "center">
+            <div class = "row">
+                <div class = "card bg-primary text-white mb-4">
+                    <div class="card">
+                        Total Products
+                    <h2 >{{ $products }}</h2>
+                </div>
+                <br>
+
+                <div class = "card bg-primary text-white mb-4">
+                    <div class="card-body">
+                        Total Categories
+                    <h2>{{ $category }}</h2>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="table-responsive" align = "center">
                             <table class="table">
                                 <thead class="table-head">
                                     <tr>
                                         <th>Product Number</th>
-                                        <th>Product Code</th>
-                                        <th>Name</th>
-                                        <th>Price</th>
-                                        <th>Category</th>
-                                        <th>Total Stocks</th>
+                                        <th>Total Stocks Added</th>
                                 </thead>
                                 </thead>
                                 <tbody classname="table-body">
-                                @foreach($products as $item)
-                                    <tr>
-                                        
-                                        <td>{{ $item->id }}</td>
-                                        <td>{{ $item->code }}</td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->price }}</td>
-                                        <td>{{ $item->category }}</td>
-                                        <td>{{ $item->quantity }}</td>
-
-                                    </tr>
+                                @foreach($totalByProduct as $result)
+                                <tr>
+                                    <td>{{ $result->name }}</td>
+                                    <td>{{ $result->total }}</td>
+                                    
+                                </tr>
                                 @endforeach
-   
-                                
+                
                                 </tbody>
                             </table>
                         </div>
-</section>
+
+
+      
+ 
+  </section>
 
 @endsection

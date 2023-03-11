@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Product;
+use App\Models\Report;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,6 +30,7 @@ Route::post('postRegistration', [AuthController::class, 'postRegistration'])->na
 
 Route::get('dashboard', [AuthController::class, 'dashboard']);
 Route::get('view', [AuthController::class, 'view'])->name('view');
+Route::get('home', [AuthController::class, 'home'])->name('home');
 Route::get('products', [AuthController::class, 'products'])->name('products');
 Route::get('category', [AuthController::class, 'category'])->name('category');
 Route::get('showcategory', [AuthController::class, 'showcategory'])->name('showcategory');
@@ -46,7 +49,7 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/delete/{id}', [AuthController::class, 'deletefunction'])->name('delete');
 Route::get('/deleteid/{id}', [AuthController::class, 'deleteproduct'])->name('delete');
 
-Route::get('/addstock/{id}', [AuthController::class, 'addstock'])->name('addstock');
-Route::get('/sold/{id}', [AuthController::class, 'sold'])->name('sold');
+Route::post('/addstock/{id}', [AuthController::class, 'addstock'])->name('addstock');
+Route::post('/sold/{id}', [AuthController::class, 'sold'])->name('sold');
 
 
